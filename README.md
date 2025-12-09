@@ -1,32 +1,125 @@
+```markdown
 # CamBot
-CamBot is a 7 Dof robot with a depth camera and a multicamera system attached to its tool flange.
-This repository contains the files needed to simulate it in a ros2 environment
 
-![image](https://github.com/user-attachments/assets/d3fa243e-48c7-4421-beb0-f233fe32fcd5)
+CamBot is a 7-DoF robot with a depth camera and a multi-camera system attached to its tool flange.  
+This repository contains the files required to simulate CamBot in a ROS 2 environment and visualize it in Gazebo and RViz2.
 
-Make sure that you have properly installed ros2 and gazebo within your system.
-Create a workspace folder and a src folder within and add this package to the src folder.
-Build it using the colcon build command on your terminal
+[Optional badges: build, license, ros2]
 
+Overview
+--------
+CamBot's package(s) include URDF/xacro descriptions, Gazebo launch files, and RViz configurations to:
+- Simulate the robot in Gazebo
+- Visualize the robot and sensor data in RViz2
+- Provide example launch files for easy startup
 
-To visualize the robot in gazebo execute the following command
+Requirements
+------------
+- ROS 2 (tested on Humble and newer)
+- Gazebo with the `gazebo_ros` packages installed
+- colcon for building (colcon-common-extensions recommended)
+- Typical dev tools (git, python3, etc.)
 
+Installation
+------------
+Create a workspace, clone the repo and build:
+
+```bash
+# create workspace
+mkdir -p ~/cambot_ws/src
+cd ~/cambot_ws/src
+
+# clone the repository
+git clone https://github.com/Anandu-Suresh-Pillai/Cambot-.git
+
+# return to workspace root
+cd ~/cambot_ws
+
+# source your ROS 2 install (replace <distro> if needed)
+source /opt/ros/<distro>/setup.bash
+
+# install dependencies (if package has package.xml / rosdep entries)
+# sudo apt update
+# sudo apt install -y python3-rosdep
+# sudo rosdep init   # run only once per machine
+# rosdep update
+# rosdep install --from-paths src --ignore-src -r -y
+
+# build
+colcon build --symlink-install
+
+# source the overlay
+source install/setup.bash
+```
+
+Notes:
+- Replace `<distro>` with your ROS 2 distribution (e.g., `humble`, `iron`).
+- If you run into missing dependencies, use rosdep as shown above.
+
+Running the simulation (Gazebo)
+------------------------------
+To launch the robot in Gazebo:
+
+```bash
+# From workspace where install/setup.bash is sourced
 ros2 launch cambot_description gazebo.launch.py
+```
 
-You should expect an output like this
+This should open Gazebo with the CamBot model spawned. If the world or sensors do not appear, check the console for missing plugins or topic errors.
 
-![image](https://github.com/user-attachments/assets/71228a6f-9420-409d-9f28-57bcf8e25a28)
+Running the visualization (RViz2)
+---------------------------------
+To view the robot in RViz2:
 
-
-
-To visualize the robot in rviz2 execute the following command
-
+```bash
 ros2 launch cambot_description display.launch.py
+```
 
-You should expect an output like this
+This will open RViz2 using the provided RViz configuration (if present). Use the "Fixed Frame" consistent with your TF (commonly `base_link` or `world`).
 
-![image](https://github.com/user-attachments/assets/c69bf809-fd4d-42cb-b15f-40f48c9e056b)
+Images / Screenshots
+--------------------
+Replace the placeholder links below with repository-stored images under `docs/` or `media/` and reference them with raw GitHub URLs (raw.githubusercontent...) for reliable rendering.
 
+Example placeholder images:
+![Gazebo preview](docs/images/gazebo_preview.png)
+![RViz preview](docs/images/rviz_preview.png)
 
+Repository layout (expected)
+---------------------------
+- cambot_description/    — URDF / xacro, meshes, Gazebo & RViz launch files
+- cambot_control/        — controllers and config (optional)
+- launch/                — convenience launch files
+- docs/ or media/        — screenshots and documentation
 
+Troubleshooting
+---------------
+- Gazebo plugin errors: verify `gazebo_ros` and plugin dependencies are installed for your ROS 2 distro.
+- No TF / missing frames in RViz: ensure the robot_state_publisher node is running and you have sourced the correct setup.bash.
+- Build issues: try `colcon build --symlink-install --event-handlers console_cohesion+` to get clearer output.
 
+Contributing
+------------
+Contributions are welcome. Please:
+1. Open an issue describing the change or bug.
+2. Create a branch from `main`.
+3. Submit a pull request with a clear description and link to any related issue.
+
+License
+-------
+Please add a LICENSE file to specify the project license (e.g., MIT, Apache-2.0). Currently not specified.
+
+Contact / Maintainer
+--------------------
+Maintainer: Anandu-Suresh-Pillai (GitHub: Anandu-Suresh-Pillai)
+
+Acknowledgements
+----------------
+- Any libraries, tutorials, or repos used as references.
+
+TODO
+----
+- Add screenshots to `docs/images/`
+- Add a LICENSE file
+- Add CI (optional) to run syntax/lint checks and simulation smoke tests
+```
