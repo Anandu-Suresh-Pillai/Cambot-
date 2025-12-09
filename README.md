@@ -105,21 +105,3 @@ Contributions are welcome. Please:
 2. Create a branch from `main`.
 3. Submit a pull request with a clear description and link to any related issue.
 
-License
--------
-Please add a LICENSE file to specify the project license (e.g., MIT, Apache-2.0). Currently not specified.
-
-Contact / Maintainer
---------------------
-Maintainer: Anandu-Suresh-Pillai (GitHub: Anandu-Suresh-Pillai)
-
-Acknowledgements
-----------------
-- Any libraries, tutorials, or repos used as references.
-
-TODO
-----
-- Add screenshots to `docs/images/`
-- Add a LICENSE file
-- Add CI (optional) to run syntax/lint checks and simulation smoke tests
-```
